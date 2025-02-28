@@ -17,7 +17,6 @@ class TaskPage:
     def click_submit_button(self):
         self.element_worker.click_element(self.SUBMIT_BUTTON_SELECTOR, self.SUBMIT_BUTTON_SELECTOR_VALUE)
 
-
     def change_task_title(self, title):
         self.element_worker.input_value(self.TASK_TITLE_SELECTOR, self.TASK_TITLE_SELECTOR_VALUE, title)
 
