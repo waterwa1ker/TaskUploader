@@ -9,11 +9,11 @@ class PdfViewer:
         with pdfplumber.open(self.path) as pdf:
             text = ""
             for page in pdf.pages:
-                text = f'{text}***{page.extract_text()}'
+                text += page.extract_text_simple()
         return text
 
 def main():
-    pdf_viewer = PdfViewer('internship_pres.pdf')
+    pdf_viewer = PdfViewer('test2.pdf')
     print(pdf_viewer.extract_text())
 
 if __name__ == '__main__':

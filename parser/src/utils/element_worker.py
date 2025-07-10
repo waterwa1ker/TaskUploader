@@ -1,6 +1,7 @@
-from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote import webelement
+from selenium.webdriver.support import expected_conditions as ec
+
 
 class ElementWorker:
 
@@ -14,18 +15,18 @@ class ElementWorker:
 
     def click_element(self, selector, selector_value):
 
-        element = self.__get_element(selector, selector_value)
-        self.__click(element)
+        element = self.__get_element__(selector, selector_value)
+        self.__click__(element)
 
 
     def input_value(self, selector, selector_value, input_value):
 
-        element = self.__get_element(selector, selector_value)
+        element = self.__get_element__(selector, selector_value)
 
         self.__clear_value(element)
         self.__set_value(element, input_value)
 
-    def __get_element(self, selector, selector_value) -> webelement:
+    def __get_element__(self, selector, selector_value) -> webelement:
         
         selector_dict = {
             'id': By.ID,
@@ -38,7 +39,7 @@ class ElementWorker:
             )
         )
 
-    def __click(self, element):
+    def __click__(self, element):
         element.click()
 
 

@@ -7,10 +7,15 @@ class AppPage:
 
         self.CLOZE_TEXT_SELECTOR = 'xpath'
         self.CLOZE_TEXT_SELECTOR_VALUE = '/html/body/div[2]/div[6]/div/div[3]/div[8]/div'
+        self.MULTIPLE_CHOICE_SELECTOR = 'xpath'
+        self.MULTIPLE_CHOICE_SELECTOR_VALUE = '/html/body/div[2]/div[6]/div/div[3]/div[7]/div'
         self.CREATE_NEW_APP_SELECTOR = 'xpath'
         self.CREATE_NEW_APP_SELECTOR_VALUE = '/html/body/div[2]/div[6]/div/div[3]/div[9]/div[3]/div[4]/a'
 
         self.element_worker = element_worker
+
+    def choose_multiple_choice(self):
+        self.element_worker.click_element(self.MULTIPLE_CHOICE_SELECTOR, self.MULTIPLE_CHOICE_SELECTOR_VALUE)
 
     def choose_cloze_text(self):
         self.element_worker.click_element(self.CLOZE_TEXT_SELECTOR, self.CLOZE_TEXT_SELECTOR_VALUE)
