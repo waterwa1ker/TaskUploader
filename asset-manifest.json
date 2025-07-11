@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pdf-converter/static/css/main.d5a6f6a9.css",
+    "main.js": "/pdf-converter/static/js/main.fef0b6e5.js",
+    "index.html": "/pdf-converter/index.html",
+    "main.d5a6f6a9.css.map": "/pdf-converter/static/css/main.d5a6f6a9.css.map",
+    "main.fef0b6e5.js.map": "/pdf-converter/static/js/main.fef0b6e5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d5a6f6a9.css",
+    "static/js/main.fef0b6e5.js"
+  ]
+}
