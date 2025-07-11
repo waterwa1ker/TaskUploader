@@ -4,7 +4,9 @@ function UploadPage() {
   return (
     <div className="upload-page">
       <h1>Convert PDF to LearningApps</h1>
-      <p>Upload your textbook PDF to automatically generate interactive exercises</p>
+      <p style={{fontSize: '1.08rem', color: 'var(--muted)', marginBottom: 18, textAlign: 'center', maxWidth: 340}}>
+        Upload your textbook PDF to automatically generate interactive exercises for your students.
+      </p>
       <PDFUploader />
     </div>
   );

@@ -1,6 +1,23 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function Header() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    setIsAuth(!!localStorage.getItem('token'));
+    window.addEventListener('storage', () => {
+      setIsAuth(!!localStorage.getItem('token'));
+    });
+    return () => window.removeEventListener('storage', () => {});
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsAuth(false);
+    window.location.href = '/login';
+  };
+
   return (
     <header className="header">
       <nav>
@@ -8,6 +25,14 @@ function Header() {
         <div className="nav-links">
           <Link to="/upload">Upload PDF</Link>
           <Link to="/history">History</Link>
+          {isAuth ? (
+            <button onClick={handleLogout} className="logout-btn">Logout</button>
+          ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </>
+          )}
         </div>
       </nav>
     </header>

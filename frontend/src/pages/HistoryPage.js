@@ -23,14 +23,16 @@ function HistoryPage() {
   }, []);
 
   if (loading) return <LoadingSpinner />;
-  if (error) return <div className="error">{error}</div>;
+  if (error) return <div className="history-page"><div className="alert alert-error">{error}</div></div>;
 
   return (
     <div className="history-page">
       <h1>Conversion History</h1>
-      
+      <p style={{fontSize: '1.05rem', color: 'var(--muted)', marginBottom: 18, textAlign: 'center', maxWidth: 340}}>
+        Here you can see all your previous PDF conversions and access generated LearningApps.
+      </p>
       {history.length === 0 ? (
-        <p>No conversion history yet.</p>
+        <p style={{color: 'var(--muted)', marginTop: 18}}>No conversion history yet.</p>
       ) : (
         <table className="history-table">
           <thead>
@@ -59,6 +61,7 @@ function HistoryPage() {
                   <button 
                     onClick={() => window.open(item.links.learningApps, '_blank')}
                     disabled={item.status !== 'completed'}
+                    style={{minWidth: 90}}
                   >
                     View Apps
                   </button>

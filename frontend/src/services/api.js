@@ -38,3 +38,28 @@ export async function getConversionHistory() {
     throw new Error(error.response?.data?.message || error.message);
   }
 }
+
+export async function registerUser(username, password, role = "USER") {
+  try {
+    const response = await axios.post(`${API_URL}/auth/register`, {
+      username,
+      password,
+      role
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
+
+export async function loginUser(username, password) {
+  try {
+    const response = await axios.post(`${API_URL}/auth/login`, {
+      username,
+      password
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
