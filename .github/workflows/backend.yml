@@ -2,7 +2,7 @@ name: Backend CI
 
 on:
   push:
-    branches: [ develop/backend]
+    branches: [ develop-backend]
 
 jobs:
   build:

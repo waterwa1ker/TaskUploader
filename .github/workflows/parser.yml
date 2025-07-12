@@ -2,7 +2,7 @@ name: Parser CI
 
 on:
   push:
-    branches: [ develop/parser ]
+    branches: [ develop-parser ]
 
 jobs:
   build:
