@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { changePassword, updateSettings } from '../services/api';
+import { changePassword, updateSettings, deleteAccount } from '../services/api';
 import Alert from '../components/Alert';
 
 function SettingsPage() {
@@ -17,6 +17,7 @@ function SettingsPage() {
   
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handlePasswordChange = async (e) => {
     e.preventDefault();
@@ -54,6 +55,23 @@ function SettingsPage() {
     try {
       await updateSettings(settings);
       setSuccess('Settings updated successfully!');
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setError('');
+    setSuccess('');
+    
+    try {
+      await deleteAccount();
+      setSuccess('Account deleted successfully!');
+      // Очистить токен и перенаправить на главную
+      localStorage.removeItem('token');
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1500);
     } catch (err) {
       setError(err.message);
     }
@@ -181,7 +199,34 @@ function SettingsPage() {
             <h4>Delete Account</h4>
             <p>Permanently delete your account and all associated data. This action cannot be undone.</p>
           </div>
-          <button className="danger-button">Delete Account</button>
+          {!showDeleteConfirm ? (
+            <button 
+              className="danger-button"
+              onClick={() => setShowDeleteConfirm(true)}
+            >
+              Delete Account
+            </button>
+          ) : (
+            <div className="delete-confirmation">
+              <p style={{color: 'var(--error)', fontSize: '0.9rem', marginBottom: 8}}>
+                Are you sure? This action cannot be undone.
+              </p>
+              <div className="button-group">
+                <button 
+                  className="danger-button"
+                  onClick={handleDeleteAccount}
+                >
+                  Yes, Delete My Account
+                </button>
+                <button 
+                  className="secondary-button"
+                  onClick={() => setShowDeleteConfirm(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

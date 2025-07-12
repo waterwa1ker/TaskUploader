@@ -124,7 +124,7 @@ export async function getRecentConversions() {
 export async function changePassword(currentPassword, newPassword) {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.post(`${API_URL}/user-change-password`, {
+    const response = await axios.post(`${API_URL}/settings/change-password`, {
       currentPassword,
       newPassword
     }, {
@@ -155,7 +155,7 @@ export async function updateSettings(settings) {
 export async function deleteAccount() {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.delete(`${API_URL}/user-account`, {
+    const response = await axios.delete(`${API_URL}/settings`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
