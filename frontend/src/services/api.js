@@ -63,3 +63,105 @@ export async function loginUser(username, password) {
     throw new Error(error.response?.data?.message || error.message);
   }
 }
+
+// User Profile & Dashboard APIs
+export async function getUserProfile() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`${API_URL}/user-profile`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
+
+export async function updateUserProfile(profileData) {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.put(`${API_URL}/user-profile`, profileData, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
+
+export async function getUserStats() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`${API_URL}/user-stats`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
+
+export async function getRecentConversions() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get(`${API_URL}/user-recent-conversions`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
+
+export async function changePassword(currentPassword, newPassword) {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post(`${API_URL}/user-change-password`, {
+      currentPassword,
+      newPassword
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
+
+export async function updateSettings(settings) {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.put(`${API_URL}/user-settings`, settings, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
+
+export async function deleteAccount() {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.delete(`${API_URL}/user-account`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || error.message);
+  }
+}
