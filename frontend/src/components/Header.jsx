@@ -23,10 +23,17 @@ function Header() {
       <nav>
         <Link to="/" className="logo">PDF2LearningApps</Link>
         <div className="nav-links">
-          <Link to="/upload">Upload PDF</Link>
-          <Link to="/history">History</Link>
           {isAuth ? (
-            <button onClick={handleLogout} className="logout-btn">Logout</button>
+            <>
+              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/upload">Upload PDF</Link>
+              <Link to="/history">History</Link>
+              <div className="user-menu">
+                <Link to="/profile">Profile</Link>
+                <Link to="/settings">Settings</Link>
+                <button onClick={handleLogout} className="logout-btn">Logout</button>
+              </div>
+            </>
           ) : (
             <>
               <Link to="/login">Login</Link>
