@@ -11,12 +11,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/user-profile")
 @AllArgsConstructor
+@PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
 public class UserProfileController {
 
     private final UserService userService;
@@ -26,7 +26,7 @@ public class UserProfileController {
     @GetMapping
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<?> getUserProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        User user = getPersonByToken(token);
+        User user = getUserByToken(token);
         if (user == null) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
@@ -35,10 +35,9 @@ public class UserProfileController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
     public ResponseEntity<?> updateUserProfile(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
                                                @RequestBody UserProfileDTO userProfileDTO) {
-        User user = getPersonByToken(token);
+        User user = getUserByToken(token);
         if (user == null) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         }
@@ -46,7 +45,7 @@ public class UserProfileController {
         return new ResponseEntity<>("User profile updated", HttpStatus.OK);
     }
 
-    private User getPersonByToken(String token) {
+    private User getUserByToken(String token) {
         token = token.replace("Bearer ", "");
         String username = jwtService.extractUsername(token);
         return userService.findUserByUsername(username);
