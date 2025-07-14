@@ -46,6 +46,12 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "email_verified")
+    private boolean emailVerified;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserEmail> userEmails;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

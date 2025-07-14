@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body style="font-family: Arial, sans-serif; color: #222;">
+        <h2>Подтверждение электронной почты</h2>
+        <p>Здравствуйте!</p>
+        <p>
+            Вы зарегистрировались на сайте <b>PDF2LearningApps</b> или изменили свой email.<br>
+            Пожалуйста, подтвердите ваш адрес электронной почты, перейдя по ссылке ниже:
+        </p>
+        <p>
+            <a th:href="${verificationLink}"
+               style="background: #4f8cff; color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none;">
+                Подтвердить email
+            </a>
+        </p>
+        <p style="font-size: 0.95em; color: #666;">
+            Если кнопка не работает, скопируйте и вставьте эту ссылку в браузер:<br>
+            <a th:href="${verificationLink}" th:text="${verificationLink}">verificationLink</a>
+        </p>
+        <p>Если вы не регистрировались на нашем сайте, просто проигнорируйте это письмо.</p>
+        <br>
+        <p>С уважением,<br>Команда <span>PDF2LearningApps</span></p>
+    </body>
+</html>

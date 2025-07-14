@@ -44,6 +44,10 @@ public class UserService implements UserDetailsService {
                 .orElse(null);
     }
 
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
     public void changeUser(User user, UserProfileDTO userProfileDTO) {
         if (userProfileDTO.getUsername() != null) {
             user.setUsername(userProfileDTO.getUsername());
