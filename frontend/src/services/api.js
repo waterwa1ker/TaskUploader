@@ -165,3 +165,24 @@ export async function deleteAccount() {
     throw new Error(error.response?.data?.message || error.message);
   }
 }
+
+export async function sendEmailVerification(email) {
+  const token = localStorage.getItem('token');
+  const response = await axios.post(`${API_URL}/email/send-verification`, { email }, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  return response.data;
+}
+
+export async function verifyEmail(token) {
+  const response = await axios.post(`${API_URL}/email/verify`, { token });
+  return response.data;
+}
+
+export async function getEmailStatus() {
+  const token = localStorage.getItem('token');
+  const response = await axios.get(`${API_URL}/email/status`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  return response.data;
+}

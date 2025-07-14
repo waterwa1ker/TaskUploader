@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUserProfile, updateUserProfile } from '../services/api';
+import { getUserProfile, updateUserProfile, sendEmailVerification, getEmailStatus } from '../services/api';
 import Alert from '../components/Alert';
 import LoadingSpinner from '../components/LoadingSpinner';
 
@@ -17,8 +17,14 @@ function ProfilePage() {
     lastName: ''
   });
 
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [emailStatusLoading, setEmailStatusLoading] = useState(true);
+  const [emailStatusError, setEmailStatusError] = useState('');
+  const [verificationSent, setVerificationSent] = useState(false);
+
   useEffect(() => {
     fetchProfile();
+    fetchEmailStatus();
   }, []);
 
   const fetchProfile = async () => {
@@ -35,6 +41,31 @@ function ProfilePage() {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchEmailStatus = async () => {
+    setEmailStatusLoading(true);
+    setEmailStatusError('');
+    try {
+      const data = await getEmailStatus();
+      setEmailVerified(data.verified);
+    } catch (err) {
+      setEmailStatusError('Failed to get email status');
+    } finally {
+      setEmailStatusLoading(false);
+    }
+  };
+
+  const handleSendVerification = async () => {
+    setError('');
+    setSuccess('');
+    setVerificationSent(false);
+    try {
+      await sendEmailVerification(formData.email);
+      setVerificationSent(true);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -83,6 +114,25 @@ function ProfilePage() {
             <label>Role:</label>
             <span className="role-badge">{profile?.role}</span>
           </div>
+          <div className="info-item">
+            <label>Email:</label>
+            <span>{profile?.email}</span>
+            {emailStatusLoading ? (
+              <span style={{marginLeft: 8, color: 'var(--muted)', fontSize: '0.9rem'}}>Checking...</span>
+            ) : emailVerified ? (
+              <span style={{marginLeft: 8, color: 'var(--success)', fontSize: '0.9rem'}}>Verified</span>
+            ) : (
+              <span style={{marginLeft: 8, color: 'var(--error)', fontSize: '0.9rem'}}>Not verified</span>
+            )}
+          </div>
+          {!emailVerified && !emailStatusLoading && (
+            <div style={{marginTop: 8}}>
+              <button onClick={handleSendVerification} className="secondary-button" style={{fontSize: '0.95rem'}}>
+                {verificationSent ? 'Verification Email Sent!' : 'Send Verification Email'}
+              </button>
+            </div>
+          )}
+          {emailStatusError && <div style={{color: 'var(--error)', fontSize: '0.9rem', marginTop: 4}}>{emailStatusError}</div>}
           <div className="info-item">
             <label>Member since:</label>
             <span>{profile?.createdAt ? new Date(profile.createdAt).toLocaleDateString() : 'N/A'}</span>
