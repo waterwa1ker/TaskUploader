@@ -592,6 +592,23 @@ select:focus {
   background: #dc2626;
 }
 
+.delete-confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.delete-confirmation .button-group {
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+}
+
+.delete-confirmation .button-group button {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
 /* User Menu */
 .user-menu {
   display: flex;
@@ -618,5 +635,9 @@ select:focus {
   .user-menu {
     flex-direction: column;
     gap: 8px;
+  }
+  
+  .delete-confirmation .button-group {
+    flex-direction: column;
   }
 }
